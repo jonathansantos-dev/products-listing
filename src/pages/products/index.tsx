@@ -6,7 +6,10 @@ import SidebarFilter from '../../components/SidebarFilter';
 import { useProducts } from '../../hooks/useProducts';
 
 export default function Products() {
-  // const { products } = useProducts()
+  const { products } = useProducts()
+  const [viewType, setViewType] = useState<'list' | 'grid' | 'table'>('list');
+
+  console.log('Products component called', products);
 
   return (
     <S.Container>
@@ -25,19 +28,23 @@ export default function Products() {
         
         {/* Botões de troca de visualização */}
         <div>
-          <button onClick={() => setViewType('list')}>List</button>
-          <button onClick={() => setViewType('grid')}>Grid</button>
-          <button onClick={() => setViewType('table')}>Table</button>
+          <div>
+            <button onClick={() => setViewType('list')}>List</button>
+            <button onClick={() => setViewType('grid')}>Grid</button>
+            <button onClick={() => setViewType('table')}>Table</button>
+          </div>
+          <section>
+            {products.map((product: Product, index: number) => {
+              return <li key={`${index}-${product.name}`}>
+                {product.name} - {product.price}
+              </li>
+            })}
+          </section>
         </div>
       </S.Wrapper>
 
 
       {/* Aqui você renderiza os produtos com base na viewType */}
-      <section>
-        {/* {products.map((product: Product, index: number) => {
-          return <li key={`${index}-${product.name}`}></li>
-        })} */}
-      </section>
     </S.Container>
   );
 }

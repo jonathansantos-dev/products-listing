@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "../services/productServices"
+import type { Product } from "../services/types";
 
 export const useProducts = () => {
-  // const [products, setProducts] = useState([]);
-  // const [viewType, setViewType] = useState<'list' | 'grid' | 'table'>('list');
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data || []);
+      console.log('useProducts hook called', data);
+    };
 
+    fetchProducts();
   }, []);
 
-  const response = async () => {
-    await getProducts()
-  }
 
-  return { response }
+  return { products }
 }
