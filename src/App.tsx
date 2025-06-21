@@ -1,14 +1,13 @@
 // App.tsx
 import { useEffect, useState } from 'react';
-import SidebarFilter from './SidebarFilter';
-
-export type Product = {
-  id: number;
-  name: string;
-  category: string;
-  price: number;
-  image?: string;
-};
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import type { Product } from './services/types';
+import Products from './pages/products';
 
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,29 +18,11 @@ export default function App() {
   }, []);
 
   return (
-    <div>
-      <h1>Product Listing</h1>
-
-      <SidebarFilter 
-        onSearch={(value) => {
-          // Aqui você vai filtrar os produtos com base no valor de busca
-        }}
-        onCategoryChange={(value) => {
-          // Aqui você vai filtrar os produtos com base na categoria selecionada
-        }}
-      />
-      
-      {/* Botões de troca de visualização */}
-      <div>
-        <button onClick={() => setViewType('list')}>List</button>
-        <button onClick={() => setViewType('grid')}>Grid</button>
-        <button onClick={() => setViewType('table')}>Table</button>
-      </div>
-
-      {/* Aqui você renderiza os produtos com base na viewType */}
-      <section>
-        {/* Componente que você ainda vai criar */}
-      </section>
-    </div>
+    <Router>      
+      <Routes>
+        <Route path="/" element={<><h1>Minha Loja Virtual</h1> <Link to={"/products"}>Produtos</Link></>} />
+        <Route path="/products" element={<Products />} />
+      </Routes>      
+    </Router>
   );
 }

@@ -1,5 +1,5 @@
-// SidebarFilter.tsx
 import React from 'react';
+import * as S from './styles';
 
 type SidebarFilterProps = {
   onSearch: (value: string) => void;
@@ -11,7 +11,7 @@ const SidebarFilter: React.FC<SidebarFilterProps> = ({
   onCategoryChange,
 }) => {
   return (
-    <div>
+    <S.Wrapper>
       <input
         type="text"
         placeholder="Search products"
@@ -24,7 +24,7 @@ const SidebarFilter: React.FC<SidebarFilterProps> = ({
         <option value="electronics">Electronics</option>
         <option value="jewelery">Jewelery</option>
       </select>
-    </div>
+    </S.Wrapper>
   );
 };
 
